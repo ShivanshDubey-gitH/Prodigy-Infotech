@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Shivansh Dubey - Portfolio</title>
+  <style>
+    /* General Reset */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: "Poppins", sans-serif;
+    }
+
+    body {
+      background: #f9f9f9;
+      color: #333;
+      line-height: 1.6;
+    }
+
+    /* Navbar */
+    header {
+      background: #222;
+      padding: 15px 30px;
+      color: #fff;
+    }
+    nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+    nav .logo {
+      font-size: 1.5rem;
+      font-weight: bold;
+    }
+    nav ul {
+      list-style: none;
+      display: flex;
+      gap: 20px;
+    }
+    nav ul li a {
+      color: #fff;
+      text-decoration: none;
+      font-weight: 500;
+      transition: 0.3s;
+    }
+    nav ul li a:hover {
+      color: #ff9800;
+    }
+
+    /* Home Section */
+    .home {
+      text-align: center;
+      padding: 60px 20px;
+      background: linear-gradient(to right, #ff9800, #ff5722);
+      color: #fff;
+    }
+    .profile-img {
+      width: 150px;
+      height: 150px;
+      border-radius: 50%;
+      margin-bottom: 20px;
+    }
+    .highlight {
+      color: #ffe082;
+    }
+    .btn {
+      display: inline-block;
+      margin-top: 20px;
+      padding: 10px 25px;
+      background: #fff;
+      color: #ff5722;
+      border-radius: 25px;
+      font-weight: bold;
+      text-decoration: none;
+      transition: 0.3s;
+    }
+    .btn:hover {
+      background: #222;
+      color: #fff;
+    }
+
+    /* About Section */
+    .about {
+      padding: 50px 20px;
+      background: #fff;
+    }
+    .about h2 {
+      margin-bottom: 20px;
+      font-size: 2rem;
+      color: #ff5722;
+    }
+    .about p {
+      margin-bottom: 20px;
+    }
+    .about ul {
+      margin-left: 20px;
+      margin-bottom: 20px;
+    }
+
+    /* Projects */
+    .projects {
+      padding: 50px 20px;
+      background: #f1f1f1;
+    }
+    .projects h2 {
+      margin-bottom: 30px;
+      font-size: 2rem;
+      color: #ff5722;
+      text-align: center;
+    }
+    .project-card {
+      background: #fff;
+      padding: 20px;
+      margin: 15px auto;
+      max-width: 600px;
+      border-radius: 10px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+    .project-card h3 {
+      margin-bottom: 10px;
+      color: #222;
+    }
+
+    /* Contact */
+    .contact {
+      padding: 50px 20px;
+      background: #fff3e0;
+      text-align: center;
+    }
+    .contact h2 {
+      margin-bottom: 20px;
+      color: #ff5722;
+    }
+    .contact a {
+      color: #ff5722;
+      text-decoration: none;
+      font-weight: bold;
+    }
+    .contact a:hover {
+      text-decoration: underline;
+    }
+
+    /* Footer */
+    footer {
+      text-align: center;
+      padding: 15px;
+      background: #222;
+      color: #fff;
+      margin-top: 20px;
+    }
+
+    /* Responsive Design */
+    @media (max-width: 768px) {
+      nav ul {
+        flex-direction: column;
+        gap: 10px;
+        margin-top: 10px;
+      }
+      .profile-img {
+        width: 120px;
+        height: 120px;
+      }
+      .about h2, .projects h2, .contact h2 {
+        font-size: 1.5rem;
+      }
+      .project-card {
+        padding: 15px;
+      }
+    }
+    @media (max-width: 480px) {
+      nav {
+        flex-direction: column;
+        align-items: center;
+      }
+      nav .logo {
+        margin-bottom: 10px;
+      }
+      .btn {
+        padding: 8px 18px;
+        font-size: 0.9rem;
+      }
+      .about, .projects, .contact {
+        padding: 30px 15px;
+      }
+      .about p, .project-card p {
+        font-size: 0.9rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Header / Navbar -->
+  <header>
+    <nav>
+      <div class="logo">Shivansh Dubey</div>
+      <ul>
+        <li><a href="#home">Home</a></li>
+        <li><a href="#about">About Me</a></li>
+        <li><a href="#projects">Projects</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <!-- Home Section -->
+  <section id="home" class="home">
+    <img src="https://via.placeholder.com/150" alt="Shivansh Dubey" class="profile-img" />
+    <h1>Hello, I'm <span class="highlight">Shivansh Dubey</span></h1>
+    <p>Aspiring Web Developer | B.Tech (ECE)</p>
+    <a href="#contact" class="btn">Get in Touch</a>
+  </section>
+
+  <!-- About Section -->
+  <section id="about" class="about">
+    <h2>About Me</h2>
+    <p>
+      I am Shivansh Dubey, currently pursuing my <strong>Bachelor of Technology (B.Tech)</strong> 
+      in <strong>Electronics and Communication Engineering (ECE)</strong> 
+      from <strong>Noida Institute of Engineering and Technology (NIET)</strong>.  
+    </p>
+    <p>
+      Along with my core engineering studies, I am passionate about 
+      <strong>web development</strong> and building projects that showcase my creativity and skills.
+    </p>
+    <ul>
+      <li>📚 Education: B.Tech in ECE at NIET</li>
+      <li>💻 Skills: HTML, CSS, JavaScript, React.js, Node.js</li>
+      <li>🎯 Interests: Web Development, Software Engineering, Problem Solving</li>
+    </ul>
+  </section>
+
+  <!-- Projects Section -->
+  <section id="projects" class="projects">
+    <h2>My Projects</h2>
+    <div class="project-card">
+      <h3>Personal Portfolio</h3>
+      <p>This website itself! Built with HTML, CSS, and responsive design principles.</p>
+    </div>
+    <div class="project-card">
+      <h3>Job Board (React + Node.js)</h3>
+      <p>A platform for posting and applying to jobs, showcasing CRUD operations and database integration.</p>
+    </div>
+    <div class="project-card">
+      <h3>Online Quiz Maker</h3>
+      <p>A full-stack web app where users can create and attempt quizzes with score tracking.</p>
+    </div>
+  </section>
+
+  <!-- Contact Section -->
+  <section id="contact" class="contact">
+    <h2>Contact Me</h2>
+    <p>📞 Phone: <a href="tel:+919170372634">+91 9170372634</a></p>
+    <p>📧 Email: <a href="mailto:shivanshdubey1418@gmail.com">shivanshdubey1418@gmail.com</a></p>
+    <p>🔗 LinkedIn: 
+      <a href="https://www.linkedin.com/in/shivansh-dubey-a84843279?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app" target="_blank">
+        View Profile
+      </a>
+    </p>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <p>© 2025 Shivansh Dubey. All rights reserved.</p>
+  </footer>
+
+</body>
+</html>

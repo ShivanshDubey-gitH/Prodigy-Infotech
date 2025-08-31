@@ -1,0 +1,542 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive Navigation Menu</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            line-height: 1.6;
+            color: #333;
+        }
+
+        /* Navigation Styles */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
+            z-index: 1000;
+            transition: all 0.3s ease;
+            padding: 1rem 0;
+        }
+
+        .navbar.scrolled {
+            background: rgba(26, 35, 126, 0.95);
+            backdrop-filter: blur(15px);
+            padding: 0.5rem 0;
+            box-shadow: 0 4px 30px rgba(26, 35, 126, 0.3);
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: #1a237e;
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+
+        .navbar.scrolled .logo {
+            color: #fff;
+            font-size: 1.5rem;
+        }
+
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-item {
+            position: relative;
+        }
+
+        .nav-link {
+            text-decoration: none;
+            color: #333;
+            font-weight: 500;
+            padding: 0.5rem 1rem;
+            border-radius: 25px;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .navbar.scrolled .nav-link {
+            color: #fff;
+        }
+
+        .nav-link::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, #ff6b6b, #4ecdc4);
+            transition: all 0.4s ease;
+            z-index: -1;
+            border-radius: 25px;
+        }
+
+        .nav-link:hover::before {
+            left: 0;
+        }
+
+        .nav-link:hover {
+            color: #fff;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .navbar.scrolled .nav-link:hover {
+            color: #fff;
+        }
+
+        /* Mobile Menu Toggle */
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+            padding: 0.5rem;
+        }
+
+        .hamburger span {
+            width: 25px;
+            height: 3px;
+            background: #333;
+            margin: 3px 0;
+            transition: 0.3s;
+            border-radius: 2px;
+        }
+
+        .navbar.scrolled .hamburger span {
+            background: #fff;
+        }
+
+        /* Hero Section for Demo */
+        .hero {
+            height: 100vh;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: white;
+        }
+
+        .hero-content h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            animation: fadeInUp 1s ease;
+        }
+
+        .hero-content p {
+            font-size: 1.2rem;
+            animation: fadeInUp 1s ease 0.3s both;
+        }
+
+        /* Demo Sections */
+        .section {
+            padding: 5rem 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section h2 {
+            font-size: 2.5rem;
+            margin-bottom: 2rem;
+            text-align: center;
+            color: #1a237e;
+        }
+
+        .section p {
+            font-size: 1.1rem;
+            margin-bottom: 1.5rem;
+            text-align: center;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .hamburger {
+                display: flex;
+            }
+
+            .nav-menu {
+                position: fixed;
+                left: -100%;
+                top: 70px;
+                flex-direction: column;
+                background: rgba(255, 255, 255, 0.95);
+                width: 100%;
+                text-align: center;
+                transition: 0.3s;
+                box-shadow: 0 10px 27px rgba(0, 0, 0, 0.05);
+                backdrop-filter: blur(10px);
+                padding: 2rem 0;
+                gap: 1rem;
+            }
+
+            .navbar.scrolled .nav-menu {
+                background: rgba(26, 35, 126, 0.95);
+            }
+
+            .nav-menu.active {
+                left: 0;
+            }
+
+            .hero-content h1 {
+                font-size: 2.5rem;
+            }
+
+            .section {
+                padding: 3rem 1rem;
+            }
+
+            .hamburger.active span:nth-child(2) {
+                opacity: 0;
+            }
+
+            .hamburger.active span:nth-child(1) {
+                transform: translateY(8px) rotate(45deg);
+            }
+
+            .hamburger.active span:nth-child(3) {
+                transform: translateY(-8px) rotate(-45deg);
+            }
+        }
+
+        /* Scroll indicator */
+        .scroll-indicator {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 0%;
+            height: 4px;
+            background: linear-gradient(45deg, #ff6b6b, #4ecdc4);
+            z-index: 1001;
+            transition: width 0.1s ease;
+        }
+    </style>
+</head>
+<body>
+    <!-- Scroll Progress Indicator -->
+    <div class="scroll-indicator" id="scrollIndicator"></div>
+
+    <!-- Navigation Menu -->
+    <nav class="navbar" id="navbar">
+        <div class="nav-container">
+            <a href="#home" class="logo">Brand</a>
+            
+            <ul class="nav-menu" id="navMenu">
+                <li class="nav-item">
+                    <a href="#home" class="nav-link">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#about" class="nav-link">About</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#services" class="nav-link">Services</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#portfolio" class="nav-link">Portfolio</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#contact" class="nav-link">Contact</a>
+                </li>
+            </ul>
+
+            <div class="hamburger" id="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="hero-content">
+            <h1>Interactive Navigation</h1>
+            <p>Scroll down to see the navigation menu transform!</p>
+        </div>
+    </section>
+
+    <!-- Demo Sections -->
+    <section class="section" id="about">
+        <h2>About Us</h2>
+        <p>This is a demonstration of an interactive navigation menu that changes its appearance when you scroll down the page. The menu starts with a light, transparent background and transforms to a dark theme with enhanced visual effects as you scroll.</p>
+        <p>Notice how the menu items have smooth hover effects with gradient backgrounds and subtle animations. The entire navigation experience is designed to be both functional and visually appealing.</p>
+    </section>
+
+    <section class="section" id="services">
+        <h2>Our Services</h2>
+        <p>The navigation menu features several interactive elements including hover effects on menu items, a scroll progress indicator at the top, and responsive design for mobile devices. Each menu item has a gradient animation that slides in from the left when hovered.</p>
+        <p>The fixed positioning ensures the menu stays visible while browsing, and the backdrop blur effect creates a modern glass-morphism appearance.</p>
+    </section>
+
+    <section class="section" id="portfolio">
+        <h2>Portfolio</h2>
+        <p>Keep scrolling to see how the navigation adapts! The menu becomes more compact and changes to a darker theme to provide better contrast and readability. The logo also scales down slightly for a more refined appearance.</p>
+        <p>The hamburger menu on mobile devices includes smooth animations and maintains the same interactive features as the desktop version.</p>
+    </section>
+
+    <section class="section" id="contact">
+        <h2>Contact</h2>
+        <p>Try hovering over different menu items to see the gradient animation effects. Each item transforms with a smooth color transition and subtle elevation effect. The scroll progress bar at the top shows your current position on the page.</p>
+        <p>This navigation system is perfect for modern websites that want to provide an engaging user experience while maintaining excellent usability and accessibility.</p>
+    </section>
+
+    <script>
+        // Get navigation elements
+        const navbar = document.getElementById('navbar');
+        const hamburger = document.getElementById('hamburger');
+        const navMenu = document.getElementById('navMenu');
+        const scrollIndicator = document.getElementById('scrollIndicator');
+        const navLinks = document.querySelectorAll('.nav-link');
+
+        // Scroll event listener for navbar transformation
+        window.addEventListener('scroll', () => {
+            const scrollTop = window.pageYOffset;
+            
+            // Add scrolled class when scrolled down
+            if (scrollTop > 100) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+
+            // Update scroll progress indicator
+            const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+            const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            const scrolled = (winScroll / height) * 100;
+            scrollIndicator.style.width = scrolled + '%';
+        });
+
+        // Mobile menu toggle
+        hamburger.addEventListener('click', () => {
+            hamburger.classList.toggle('active');
+            navMenu.classList.toggle('active');
+        });
+
+        // Smooth scrolling for navigation links
+        navLinks.forEach(link => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                
+                // Close mobile menu if open
+                hamburger.classList.remove('active');
+                navMenu.classList.remove('active');
+                
+                // Get target section
+                const targetId = link.getAttribute('href');
+                const targetSection = document.querySelector(targetId);
+                
+                if (targetSection) {
+                    // Calculate offset for fixed navbar
+                    const navbarHeight = navbar.offsetHeight;
+                    const targetPosition = targetSection.offsetTop - navbarHeight;
+                    
+                    // Smooth scroll to target
+                    window.scrollTo({
+                        top: targetPosition,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+
+            // Add active state management
+            link.addEventListener('mouseenter', () => {
+                link.style.transform = 'translateY(-2px) scale(1.05)';
+            });
+
+            link.addEventListener('mouseleave', () => {
+                link.style.transform = 'translateY(0) scale(1)';
+            });
+        });
+
+        // Add scroll-based animations for menu items
+        window.addEventListener('scroll', () => {
+            const scrollTop = window.pageYOffset;
+            
+            // Add staggered animation effect when scrolled
+            navLinks.forEach((link, index) => {
+                if (scrollTop > 100) {
+                    setTimeout(() => {
+                        link.style.animationDelay = `${index * 0.1}s`;
+                        link.classList.add('scrolled-animation');
+                    }, index * 50);
+                } else {
+                    link.classList.remove('scrolled-animation');
+                }
+            });
+        });
+
+        // Add dynamic color changes based on scroll position
+        window.addEventListener('scroll', () => {
+            const scrollPercent = (window.pageYOffset / (document.documentElement.scrollHeight - window.innerHeight)) * 100;
+            
+            // Change navbar background based on scroll percentage
+            if (scrollPercent > 25 && scrollPercent < 50) {
+                navbar.style.background = 'rgba(106, 17, 203, 0.95)';
+            } else if (scrollPercent >= 50 && scrollPercent < 75) {
+                navbar.style.background = 'rgba(220, 20, 60, 0.95)';
+            } else if (scrollPercent >= 75) {
+                navbar.style.background = 'rgba(255, 140, 0, 0.95)';
+            } else if (navbar.classList.contains('scrolled')) {
+                navbar.style.background = 'rgba(26, 35, 126, 0.95)';
+            } else {
+                navbar.style.background = 'rgba(255, 255, 255, 0.95)';
+            }
+        });
+
+        // Intersection Observer for active link highlighting
+        const sections = document.querySelectorAll('section[id]');
+        
+        const observerOptions = {
+            root: null,
+            rootMargin: '-50% 0px -50% 0px',
+            threshold: 0
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    // Remove active class from all links
+                    navLinks.forEach(link => link.classList.remove('active'));
+                    
+                    // Add active class to corresponding link
+                    const activeLink = document.querySelector(`.nav-link[href="#${entry.target.id}"]`);
+                    if (activeLink) {
+                        activeLink.classList.add('active');
+                    }
+                }
+            });
+        }, observerOptions);
+
+        sections.forEach(section => {
+            observer.observe(section);
+        });
+
+        // Add pulse effect on logo click
+        document.querySelector('.logo').addEventListener('click', (e) => {
+            e.preventDefault();
+            e.target.style.animation = 'pulse 0.5s ease';
+            setTimeout(() => {
+                e.target.style.animation = '';
+            }, 500);
+            
+            // Scroll to top
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+    </script>
+
+    <style>
+        /* Additional animations and effects */
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+
+        .nav-link.active {
+            background: linear-gradient(45deg, #ff6b6b, #4ecdc4);
+            color: white !important;
+        }
+
+        .nav-link.active::before {
+            left: 0;
+        }
+
+        /* Gradient text effect for scrolled state */
+        .navbar.scrolled .nav-link.active {
+            background: linear-gradient(45deg, #ffd700, #ff8c00);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent !important;
+            background: linear-gradient(45deg, #ffd700, #ff8c00);
+        }
+
+        /* Enhanced hover effects */
+        .nav-link {
+            position: relative;
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 50%;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(45deg, #ff6b6b, #4ecdc4);
+            transition: all 0.3s ease;
+            transform: translateX(-50%);
+        }
+
+        .nav-link:hover::after {
+            width: 100%;
+        }
+
+        /* Floating effect for the entire navbar */
+        .navbar {
+            border-radius: 0 0 20px 20px;
+            margin: 0 1rem;
+            width: calc(100% - 2rem);
+        }
+
+        @media (max-width: 768px) {
+            .navbar {
+                margin: 0;
+                width: 100%;
+                border-radius: 0;
+            }
+        }
+
+        /* Glowing effect on scroll */
+        .navbar.scrolled {
+            box-shadow: 
+                0 4px 30px rgba(26, 35, 126, 0.3),
+                0 0 20px rgba(26, 35, 126, 0.2),
+                inset 0 1px 0 rgba(255, 255, 255, 0.1);
+        }
+    </style>
+</body>
+</html>
